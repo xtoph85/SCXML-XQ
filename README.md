@@ -3,7 +3,7 @@ SCXML-XQ
 The SCXML-XQ project provides a set of XQuery functions for the interpretation of State Chart XML (SCXML) documents.
 
 The SCXML interpreter implements additional, non-standard features for the automation of multilevel business process models.
-In particular, the SCXML intepreter makes available multilevel predicates for synchronization between different levels of a multilevel business artifact (MBA).
+In particular, the SCXML intepreter makes available multilevel predicates for synchronization between different levels of a multilevel business artifact (MBA) [1].
 The additional features for multilevel business process automation do not adversely affect standard SCXML conformance.
 
 
