@@ -8,5 +8,5 @@ The additional features for multilevel business process automation do not advers
 
 
 References
-
+-------
 [1] Christoph Schütz, Michael Schrefl: Variability in Artifact-Centric Process Modeling: The Hetero-Homogeneous Approach, in Proceedings of the 10th Asia-Pacific Conference on Conceptual Modeling (APCCM '14), January 20-23, 2014, Auckland, New Zealand. G. Grossmann and M. Saeki (Eds.): CRPIT 154, pp. 29-38, 2014. http://crpit.com/confpapers/CRPITV154Schutz.pdf
