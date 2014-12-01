@@ -1,3 +1,4 @@
+(: Copyright (C) 2014 Christoph Schütz :)
 (:~
  : This module provides the functionality for working with SCXML documents,
  : consisting of functions for the interpretation, manipulation, and inheritance
