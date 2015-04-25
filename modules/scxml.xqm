@@ -1,28 +1,38 @@
-(: Copyright (C) 2014 Christoph Schütz :)
 (:~
+
+ : --------------------------------
+ : SCXML-XQ: An SCXML interpreter in XQuery
+ : --------------------------------
+  
+ : Copyright (C) 2014, 2015 Christoph Schütz
+   
+ : This program is free software; you can redistribute it and/or modify
+ : it under the terms of the GNU General Public License as published by
+ : the Free Software Foundation; either version 2 of the License, or
+ : (at your option) any later version.
+ 
+ : This program is distributed in the hope that it will be useful,
+ : but WITHOUT ANY WARRANTY; without even the implied warranty of
+ : MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ : GNU General Public License for more details.
+ 
+ : You should have received a copy of the GNU General Public License along
+ : with this program; if not, write to the Free Software Foundation, Inc.,
+ : 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ 
  : This module provides the functionality for working with SCXML documents,
- : consisting of functions for the interpretation, manipulation, and inheritance
+ : consisting of functions for the interpretation and manipulation 
  : of SCXML documents.
- :
+ 
+ : The SCXML interpreter depends on the external FunctX library, which is
+ : distributed by the original developers under GNU LGPL. The FunctX library
+ : is included in the repository.
+ 
  : @author Christoph Schütz
  :)
-module namespace sc='http://www.w3.org/2005/07/scxml';
-
+module namespace sc = 'http://www.w3.org/2005/07/scxml';
+import module namespace scx='http://www.w3.org/2005/07/scxml/extension/';
 import module namespace functx = 'http://www.functx.com';
-
-declare function sc:importModules() as xs:string {
-  (: Define module imports as string here :)
-  (: 'import module namespace mba = "http://www.dke.jku.at/MBA"; ' :)
-  ()
-};
-
-declare function sc:builtInFunctionDeclarations() as xs:string {    
-  (: Define additional functions by adding the code to the returned string :)
-  'let $_in := function($stateId) { ' ||
-    'fn:exists($_currentStatus/state[@ref=$stateId])' || 
-  '} '
-};
-
 
 (:~
  : 
@@ -85,10 +95,10 @@ declare updating function sc:assign($dataModels as element()*,
   
   return
     xquery:update(
-      sc:importModules ||
+      scx:importModules() ||
       fn:string-join($declare) ||
       $declareNodeList ||
-      sc:builtInFunctionDeclarations ||
+      scx:builtInFunctionDeclarations() ||
       'let $locations := ' || $location || ' ' || (
       if ($expression) then
         'let $newValues := ' || $expression || ' '
@@ -154,9 +164,9 @@ declare function sc:selectEventlessTransitions($configuration as element()*,
             $s/sc:transition[(not(@event) or @event = '') and (
                                not(@cond) or @cond = '' or
                                xquery:eval(
-                                 sc:importModules ||
+                                 scx:importModules() ||
                                  fn:string-join($declare) || 
-                                 sc:builtInFunctionDeclarations ||
+                                 scx:builtInFunctionDeclarations() ||
                                  'return ' || @cond, 
                                  map:new($dataBindings)
                                )
@@ -195,9 +205,9 @@ declare function sc:selectTransitions($configuration as element()*,
                            ) and (
                              not(@cond) or
                              xquery:eval(
-                               sc:importModules ||
+                               scx:importModules() ||
                                fn:string-join($declare) || 
-                               sc:builtInFunctionDeclarations ||
+                               scx:builtInFunctionDeclarations() ||
                                'return ' || @cond, 
                                map:new($dataBindings)
                              )
