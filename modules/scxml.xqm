@@ -134,7 +134,7 @@ declare updating function sc:assign($dataModels as element()*,
             'let $newNode := copy $c := $emptier modify(insert nodes $newValues into $c) return $c ' ||
             'return replace node $l with $newNode '
         )
-      ), map:new(($dataBindings, map:entry('nodelist', $nodelist)))
+      ), map:merge(($dataBindings, map:entry('nodelist', $nodelist)))
     )
 };
 
@@ -168,7 +168,7 @@ declare function sc:selectEventlessTransitions($configuration as element()*,
                                  fn:string-join($declare) || 
                                  scx:builtInFunctionDeclarations() ||
                                  'return ' || @cond, 
-                                 map:new($dataBindings)
+                                 map:merge($dataBindings)
                                )
                              )]
           return $transitions[1]
@@ -209,7 +209,7 @@ declare function sc:selectTransitions($configuration as element()*,
                                fn:string-join($declare) || 
                                scx:builtInFunctionDeclarations() ||
                                'return ' || @cond, 
-                               map:new($dataBindings)
+                               map:merge($dataBindings)
                              )
                            )]
       return $transitions[1]
@@ -266,7 +266,7 @@ declare function sc:computeEntrySet($transitions as element()*) as element()* {
         return sc:getTargetStates($t)
     
     let $stateLists :=
-      map:new((
+      map:merge((
         map:entry('statesToEnter', ()),
         map:entry('statesForDefaultEntry', ())
       ))
@@ -279,7 +279,7 @@ declare function sc:computeEntrySet($transitions as element()*) as element()* {
           map:get($stateListsResult, 'statesForDefaultEntry')
           
         let $f := function($statesToEnter, $statesForDefaultEntry) { 
-          map:new((
+          map:merge((
             map:entry('statesToEnter', $statesToEnter),
             map:entry('statesForDefaultEntry', $statesForDefaultEntry)
           ))
@@ -304,7 +304,7 @@ declare function sc:computeEntrySet($transitions as element()*) as element()* {
                map:get($stateListsResult, 'statesForDefaultEntry')
               
              let $f := function($statesToEnter, $statesForDefaultEntry) { 
-               map:new((
+               map:merge((
                  map:entry('statesToEnter', $statesToEnter),
                  map:entry('statesForDefaultEntry', $statesForDefaultEntry)
                ))
@@ -331,7 +331,7 @@ declare function sc:addDescendantStatesToEnter($state as element()) as item() {
   (: TODO: history states :)
   
   let $f := function($statesToEnter, $statesForDefaultEntry) { 
-    map:new((
+    map:merge((
       map:entry('statesToEnter', $statesToEnter),
       map:entry('statesForDefaultEntry', $statesForDefaultEntry)
     ))
@@ -406,7 +406,7 @@ declare function sc:addDescendantStatesToEnter($states                as element
 declare function sc:addAncestorStatesToEnter($state as element(),
                                              $ancestor as element()) as item() {
   let $f := function($statesToEnter, $statesForDefaultEntry) { 
-    map:new((
+    map:merge((
       map:entry('statesToEnter', $statesToEnter),
       map:entry('statesForDefaultEntry', $statesForDefaultEntry)
     ))
@@ -584,7 +584,7 @@ declare function sc:eval($expr       as xs:string,
       
   return xquery:eval(fn:string-join($declare) || 
                      $expr, 
-                     map:new($dataBindings))
+                     map:merge($dataBindings))
 };
 
 declare function sc:isSubDescriptorOrEqual($subDescriptor   as xs:string,
