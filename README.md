@@ -9,8 +9,8 @@ Download and install an XML database management system.
 We recommend BaseX 8.1.1: http://basex.org/
 
 ##Installation
-Checkout the repository and run the .bxs script in order to install the module.
-Open the shell, change to the root directory of the repository and run the following command:
+Checkout the git repository and run the .bxs script in order to install the module.
+Open the shell, change to the root directory of the repository on your disk and run the following command:
 
 basex repo_install.bxs
 
